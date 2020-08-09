@@ -7,29 +7,30 @@ var ctx = c.getContext("2d");
 c.height = window.innerHeight;
 c.width = window.innerWidth;
 
-var tokens = "0123456789ABCDEF";
+var tokens = "ｦｧｨｩｪｫｬｭｮｯｱｲｳｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ";
 var tokens2 = atob("TEFUNDQuNjMyNDUsTE9ORy0xMjMuMTAxOTc=")
 
-var font_size = 10;
+var font_size = 25;
 var columns = c.width/font_size; //number of columns for the rain
 //an array of drops - one per column
 var drops = [];
 var offset = []
 var tracks = []
+var speed = []
 //x below is the x coordinate
 //1 = y co-ordinate of the drop(same for every drop initially)
 for(var x = 0; x < columns; x++) {
     drops[x] = -Math.floor(Math.random() * 150);
-    offset[x] = Math.floor(Math.random() * tokens.length)
-    if (Math.random() > 0.9) {
+    speed[x] = 1 + Math.floor(Math.random() * Math.random() * 6);
+    offset[x] = Math.floor(Math.random() * tokens2.length)
+    if (Math.random() > 0.97 && speed[x] < 3) {
         tracks[x] = true;
     } else {
         tracks[x] = false;
     }
 }
 
-
-
+var counter = 0;
 
 //drawing the characters
 function draw()
@@ -39,7 +40,6 @@ function draw()
     ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
     ctx.fillRect(0, 0, c.width, c.height);
 
-    ctx.fillStyle = "#0F0"; //green text
     ctx.font = font_size + "px monospace";
     //looping over drops
     for(var i = 0; i < drops.length; i++)
@@ -54,18 +54,32 @@ function draw()
         }
 	//var text = tokens[Math.floor(Math.random()*tokens.length)];
 	//x = i*font_size, y = value of drops[i]*font_size
+        if (Math.random() > 0.9) {
+            ctx.fillStyle = "#0CC"; //green text
+        } else {
+            ctx.fillStyle = "#0FA"; //green text
+        }
 	ctx.fillText(text, i*font_size, drops[i]*font_size);
 
 	//sending the drop back to the top randomly after it has crossed the screen
 	//adding a randomness to the reset to make the drops scattered on the Y axis
 	if(drops[i]*font_size > c.height && Math.random() > 0.975) {
 	    drops[i] = 0;
-            offset[i] = Math.floor(Math.random() * tokens.length)
+            speed[i] = 1 + Math.floor(Math.random() * Math.random() * 6);
+            offset[i] = Math.floor(Math.random() * tokens2.length)
+            if (Math.random() > 0.97 && speed[i] < 3){
+                tracks[i] = true;
+            } else {
+                tracks[i] = false;
+            }
         }
 
 	//incrementing Y coordinate
-	drops[i]++;
+        if (counter % speed[i] == 0) {
+	    drops[i]++;
+        }
     }
+    counter++;
 }
 
-setInterval(draw, 33);
+setInterval(draw, 40);
