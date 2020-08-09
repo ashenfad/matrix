@@ -23,7 +23,7 @@ for(var x = 0; x < columns; x++) {
     drops[x] = -Math.floor(Math.random() * 150);
     speed[x] = 1 + Math.floor(Math.random() * Math.random() * 6);
     offset[x] = Math.floor(Math.random() * tokens2.length)
-    if (Math.random() > 0.97 && speed[x] < 3) {
+    if (Math.random() > 0.98 && speed[x] < 3) {
         tracks[x] = true;
     } else {
         tracks[x] = false;
@@ -54,8 +54,8 @@ function draw()
         }
 	//var text = tokens[Math.floor(Math.random()*tokens.length)];
 	//x = i*font_size, y = value of drops[i]*font_size
-        if (Math.random() > 0.9) {
-            ctx.fillStyle = "#0CC"; //green text
+        if (Math.random() > 0.7) {
+            ctx.fillStyle = "#0CC"; //blue-green text
         } else {
             ctx.fillStyle = "#0FA"; //green text
         }
@@ -67,7 +67,7 @@ function draw()
 	    drops[i] = 0;
             speed[i] = 1 + Math.floor(Math.random() * Math.random() * 6);
             offset[i] = Math.floor(Math.random() * tokens2.length)
-            if (Math.random() > 0.97 && speed[i] < 3){
+            if (Math.random() > 0.98 && speed[i] < 3){
                 tracks[i] = true;
             } else {
                 tracks[i] = false;
