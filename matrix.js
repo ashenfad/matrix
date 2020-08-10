@@ -6,11 +6,12 @@ var ctx = c.getContext("2d");
 //making the canvas full screen
 c.height = window.innerHeight;
 c.width = window.innerWidth;
+//
+var tokens = "ｧｨｩｪｫｬｭｮｯｱｲｳｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾇﾈﾉﾊﾋｦﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾜﾝ";
+var tokens2 = atob("TjQ0LjYzMjQ1LFcxMjMuMTAxOTc=")
+var secret_ratio = 0.02;
 
-var tokens = "ｦｧｨｩｪｫｬｭｮｯｱｲｳｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ";
-var tokens2 = atob("TEFUNDQuNjMyNDUsTE9ORy0xMjMuMTAxOTc=")
-
-var font_size = 25;
+var font_size = 24;
 var columns = c.width/font_size; //number of columns for the rain
 //an array of drops - one per column
 var drops = [];
@@ -19,14 +20,14 @@ var tracks = []
 var speed = []
 //x below is the x coordinate
 //1 = y co-ordinate of the drop(same for every drop initially)
-for(var x = 0; x < columns; x++) {
-    drops[x] = -Math.floor(Math.random() * 150);
-    speed[x] = 1 + Math.floor(Math.random() * Math.random() * 6);
-    offset[x] = Math.floor(Math.random() * tokens2.length)
-    if (Math.random() > 0.98 && speed[x] < 3) {
-        tracks[x] = true;
+for(var i = 0; i < columns; i++) {
+    drops[i] = -Math.floor(Math.random() * 150);
+    speed[i] = 1 + Math.floor(Math.random() * Math.random() * 6);
+    offset[i] = Math.floor(Math.random() * tokens2.length)
+    if (Math.random() < secret_ratio) {
+        tracks[i] = true;
     } else {
-        tracks[x] = false;
+        tracks[i] = false;
     }
 }
 
@@ -40,16 +41,17 @@ function draw()
     ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
     ctx.fillRect(0, 0, c.width, c.height);
 
-    ctx.font = font_size + "px monospace";
     //looping over drops
     for(var i = 0; i < drops.length; i++)
     {
 
         var text;
 	//a random tokens character to print
-        if (tracks[i]) {
-            text = tokens2[(offset[i] + Math.floor(drops[i])) % tokens2.length]
+        if (tracks[i] || 1400 < (counter % 1500)) {
+            ctx.font = (font_size - 1) + "px Nanum Gothic Coding";
+            text = tokens2[(offset[i] + counter) % tokens2.length]
         } else {
+            ctx.font = font_size + "px monospace";
 	    text = tokens[Math.floor(Math.random() * tokens.length)];
         }
 	//var text = tokens[Math.floor(Math.random()*tokens.length)];
@@ -67,7 +69,7 @@ function draw()
 	    drops[i] = 0;
             speed[i] = 1 + Math.floor(Math.random() * Math.random() * 6);
             offset[i] = Math.floor(Math.random() * tokens2.length)
-            if (Math.random() > 0.98 && speed[i] < 3){
+            if (Math.random() < secret_ratio){
                 tracks[i] = true;
             } else {
                 tracks[i] = false;
