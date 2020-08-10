@@ -47,7 +47,7 @@ function draw()
 
         var text;
 	//a random tokens character to print
-        if (tracks[i] || 1400 < (counter % 1500)) {
+        if (counter > 400 && (tracks[i] || 1400 < (counter % 1500))) {
             ctx.font = (font_size - 1) + "px Nanum Gothic Coding";
             text = tokens2[(offset[i] + counter) % tokens2.length]
         } else {
