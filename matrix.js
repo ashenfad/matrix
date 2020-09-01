@@ -8,7 +8,8 @@ c.height = window.innerHeight;
 c.width = window.innerWidth;
 //
 var tokens = "ｧｨｩｪｫｬｭｮｯｱｲｳｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾇﾈﾉﾊﾋｦﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾜﾝ";
-var tokens2 = atob("TjQ0LjYzMjQ1LFcxMjMuMTAxOTc=")
+var tokens2 = atob("TjQ0IDQuNDkxIFcxMjMgMi43NjUg")
+
 var secret_ratio = 0.02;
 
 var font_size = 24;
